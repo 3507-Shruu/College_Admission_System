@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Online College Admission Management System</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        /* TOP HEADER */
+
+        .top-header {
+            background: #123b6d;
+            color: white;
+            padding: 12px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        /* MAIN NAVBAR */
+
+        nav {
+            background: white;
+            height: 80px;
+            padding: 3px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+       .college-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+       .college-brand img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+        }
+
+        .college-name h2 {
+            color: #123b6d;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        .college-name p {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .login {
+            color: #123b6d;
+            border: 1px solid #123b6d;
+        }
+
+        .register {
+            background: #123b6d;
+            color: white;
+        }
+
+        .nav-buttons a:hover {
+            opacity: 0.85;
+        }
+
+        /* HERO SECTION */
+
+        .hero {
+            min-height: 570px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 7%;
+            background: linear-gradient(120deg, #eaf3ff, #ffffff);
+            gap: 50px;
+        }
+
+        .hero-text {
+            max-width: 600px;
+            transform: translateY(-55px);
+        }
+
+        .welcome {
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .hero-text h1 {
+            color: #123b6d;
+            font-size: 43px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            color: #555;
+            font-size: 17px;
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .apply-button {
+            background: #123b6d;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .learn-button {
+            border: 2px solid #123b6d;
+            color: #123b6d;
+            padding: 13px 25px;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        /* CAMPUS IMAGE */
+
+        .hero-image {
+            width: 500px;
+            height: 330px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.18);
+            transform: translateY(-30px);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* YEARS */
+
+        .years-section {
+            padding: 0px 7%;
+            background: white;
+            text-align: center;
+            transform: translateY(-40px);
+        }
+
+        .section-title {
+            color: #123b6d;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .year-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .year-card {
+            width: 280px;
+            padding: 30px 20px;
+            background: #f8fbff;
+            border-radius: 12px;
+            border: 1px solid #e0e8f2;
+            transition: 0.3s;
+        }
+
+        .year-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .year-number {
+            font-size: 40px;
+            font-weight: bold;
+            color: #123b6d;
+        }
+
+        .year-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .year-card p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* FEATURES */
+
+        .features {
+            padding: 30px 7%;
+            text-align: center;
+            background: #f5f7fb;
+        }
+
+        .feature-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-card {
+            background: white;
+            width: 250px;
+            min-height: 210px;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .feature-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #123b6d;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* PROCESS */
+
+        .process {
+            background: white;
+            padding: 60px 7%;
+            text-align: center;
+        }
+
+        .process-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+
+        .process-step {
+            width: 130px;
+            padding: 20px 10px;
+        }
+
+        .process-number {
+            width: 45px;
+            height: 45px;
+            background: #123b6d;
+            color: white;
+            border-radius: 50%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .process-step h4 {
+            margin-top: 12px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .arrow {
+            font-size: 25px;
+            color: #aaa;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #123b6d;
+            color: white;
+            padding: 35px 7%;
+            text-align: center;
+        }
+
+        footer h3 {
+            margin-bottom: 10px;
+        }
+
+        footer p {
+            color: #dce7f5;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                width: 100%;
+                max-width: 500px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP HEADER -->
+
+    <div class="top-header">
+        <span>🎓 College Admission Portal</span>
+        <span>Academic Year 2026-27</span>
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="college-brand">
+
+            <img src="{{ url_for('static', filename='images/college-logo.png') }}"
+                 alt="College Logo">
+
+            <div class="college-name">
+
+                <h2>
+                    Shivnagar Vidya Prasarak Mandal's
+                    College of Engineering
+                </h2>
+
+                <p>
+                    Malegaon (BK) - Baramati
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-buttons">
+
+            <a href="#" class="login">
+                Student Login
+            </a>
+
+            <a href="#" class="register">
+                Register
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <div class="welcome">
+                WELCOME BACK TO ONLINE ADMISSION PORTAL
+            </div>
+
+            <h1>
+                Smart Online College
+                Admission Management System
+            </h1>
+
+            <p>
+                Complete your college admission process online
+                from registration to document verification,
+                fee payment and application tracking.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#" class="apply-button">
+                    Apply for Admission →
+                </a>
+
+                <a href="#" class="learn-button">
+                    View Admission Process
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-image">
+
+            <img src="{{ url_for('static', filename='images/college-campus.jpg') }}"
+                 alt="College Campus">
+
+        </div>
+
+    </section>
+
+
+    <!-- YEAR SELECTION -->
+
+    <section class="years-section">
+
+        <h2 class="section-title">
+            Admission for Students
+        </h2>
+
+        <p class="section-subtitle">
+            Select your academic year to continue the admission process.
+        </p>
+
+
+        <div class="year-container">
+
+            <div class="year-card">
+
+                <div class="year-number">
+                    2nd
+                </div>
+
+                <h3>
+                    Second Year
+                </h3>
+
+                <p>
+                    Online admission process for Second Year students.
+                </p>
+
+            </div>
+
+
+            <div class="year-card">
+
+                <div class="year-number">
+                    3rd
+                </div>
+
+                <h3>
+                    Third Year
+                </h3>
+
+                <p>
+                    Online admission process for Third Year students.
+                </p>
+
+            </div>
+
+
+            <div class="year-card">
+
+                <div class="year-number">
+                    4th
+                </div>
+
+                <h3>
+                    Final Year
+                </h3>
+
+                <p>
+                    Online admission process for Final Year students.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SYSTEM FEATURES -->
+
+    <section class="features">
+
+        <h2 class="section-title">
+            Smart Admission Features
+        </h2>
+
+        <p class="section-subtitle">
+            Complete admission process in one online platform.
+        </p>
+
+
+        <div class="feature-container">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    👤
+                </div>
+
+                <h3>
+                    Student Registration
+                </h3>
+
+                <p>
+                    Create your account and manage your
+                    admission profile online.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Online Application
+                </h3>
+
+                <p>
+                    Fill personal, academic and admission
+                    information online.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📄
+                </div>
+
+                <h3>
+                    Document Upload
+                </h3>
+
+                <p>
+                    Upload required admission documents
+                    securely.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    AI Verification
+                </h3>
+
+                <p>
+                    AI-assisted document checking helps
+                    identify information mismatches.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    💳
+                </div>
+
+                <h3>
+                    Online Payment
+                </h3>
+
+                <p>
+                    Pay admission fees through the online
+                    payment system.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🧾
+                </div>
+
+                <h3>
+                    Payment Receipt
+                </h3>
+
+                <p>
+                    Get your online payment completion slip
+                    automatically.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Application Tracking
+                </h3>
+
+                <p>
+                    Track your application and admission
+                    status anytime.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔔
+                </div>
+
+                <h3>
+                    Notifications
+                </h3>
+
+                <p>
+                    Receive important admission updates
+                    and notifications.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ADMISSION PROCESS -->
+
+    <section class="process">
+
+        <h2 class="section-title">
+            Online Admission Process
+        </h2>
+
+        <p class="section-subtitle">
+            Simple step-by-step admission process
+        </p>
+
+
+        <div class="process-container">
+
+            <div class="process-step">
+
+                <div class="process-number">1</div>
+
+                <h4>Register</h4>
+
+            </div>
+
+            <div class="arrow">→</div>
+
+
+            <div class="process-step">
+
+                <div class="process-number">2</div>
+
+                <h4>Login</h4>
+
+            </div>
+
+            <div class="arrow">→</div>
+
+
+            <div class="process-step">
+
+                <div class="process-number">3</div>
+
+                <h4>Fill Application</h4>
+
+            </div>
+
+            <div class="arrow">→</div>
+
+
+            <div class="process-step">
+
+                <div class="process-number">4</div>
+
+                <h4>Upload Documents</h4>
+
+            </div>
+
+            <div class="arrow">→</div>
+
+
+            <div class="process-step">
+
+                <div class="process-number">5</div>
+
+                <h4>AI Verification</h4>
+
+            </div>
+
+            <div class="arrow">→</div>
+
+
+            <div class="process-step">
+
+                <div class="process-number">6</div>
+
+                <h4>Payment</h4>
+
+            </div>
+
+            <div class="arrow">→</div>
+
+
+            <div class="process-step">
+
+                <div class="process-number">7</div>
+
+                <h4>Confirmation</h4>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>
+            Shivnagar Vidya Prasarak Mandal's College of Engineering
+        </h3>
+
+        <p>
+            Malegaon (BK) - Baramati
+        </p>
+
+        <p>
+            Smart Online College Admission Management System
+        </p>
+
+        <div class="copyright">
+
+            © 2026 College Admission System. All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

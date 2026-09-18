@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+        }
+
+        .header {
+            background: #ffffff;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .college-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logout {
+            padding: 10px 20px;
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .container {
+            width: 88%;
+            margin: 35px auto;
+        }
+
+        .welcome {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .welcome h1 {
+            margin-bottom: 8px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+
+        <div class="college-name">
+            College Admission Portal
+        </div>
+
+        <a href="/" class="logout">Logout</a>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="welcome">
+
+            <h1>Welcome Back!</h1>
+
+            <p>
+                Student Admission Management Dashboard
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h2>📝 Admission Application</h2>
+
+                <p>
+                    Fill and submit your online admission application.
+                </p>
+
+                <a href="#" class="btn">
+                    Apply Now
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>📄 Document Verification</h2>
+
+                <p>
+                    Upload your documents and verify them using AI.
+                </p>
+
+                <a href="#" class="btn">
+                    Verify Documents
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>💳 Online Payment</h2>
+
+                <p>
+                    Pay your admission fees online.
+                </p>
+
+                <a href="#" class="btn">
+                    Make Payment
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>📊 Application Status</h2>
+
+                <p>
+                    Check your admission application status.
+                </p>
+
+                <a href="#" class="btn">
+                    View Status
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>🧾 Payment Receipt</h2>
+
+                <p>
+                    View and download your payment receipt.
+                </p>
+
+                <a href="#" class="btn">
+                    View Receipt
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>🔔 Notifications</h2>
+
+                <p>
+                    Check important admission notifications.
+                </p>
+
+                <a href="#" class="btn">
+                    View Notifications
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
