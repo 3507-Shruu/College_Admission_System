@@ -104,7 +104,7 @@
             College Admission Portal
         </div>
 
-        <a href="/" class="logout">Logout</a>
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
 
     </div>
 
@@ -121,6 +121,23 @@
 
         </div>
 
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div style="
+                    background: #e8f7ee;
+                    color: #176b3a;
+                    padding: 12px 18px;
+                    border: 1px solid #b7e4c7;
+                    border-radius: 8px;
+                    margin-bottom: 25px;
+                    text-align: center;
+                    font-weight: bold;
+                ">
+                     {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
 
         <div class="cards">
 
@@ -132,7 +149,7 @@
                     Fill and submit your online admission application.
                 </p>
 
-                <a href="#" class="btn">
+                <a href="{{ url_for('admission_application') }}" class="btn">
                     Apply Now
                 </a>
 
@@ -147,7 +164,7 @@
                     Upload your documents and verify them using AI.
                 </p>
 
-                <a href="#" class="btn">
+                <a href="{{ url_for('document_verification') }}" class="btn">
                     Verify Documents
                 </a>
 
@@ -177,7 +194,7 @@
                     Check your admission application status.
                 </p>
 
-                <a href="#" class="btn">
+                <a href="{{ url_for('application_status') }}" class="btn">
                     View Status
                 </a>
 

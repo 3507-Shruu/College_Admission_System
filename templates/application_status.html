@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Application Status</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #123b6d;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #dce7f5;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .status-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .status-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .status-card h2 {
+            color: #123b6d;
+            margin-bottom: 20px;
+        }
+
+        .details {
+            text-align: left;
+            margin-top: 25px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-row strong {
+            color: #333;
+        }
+
+        .status {
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .approved {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .rejected {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .not-found {
+            color: #666;
+            margin: 20px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #123b6d;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <h1>
+            Application Status
+        </h1>
+
+        <p>
+            Student Admission Management Portal
+        </p>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="status-card">
+
+            {% if application %}
+
+                <div class="status-icon">
+                    📋
+                </div>
+
+                <h2>
+                    Your Application
+                </h2>
+
+                <div class="details">
+
+                    <div class="detail-row">
+                        <strong>Application ID</strong>
+                        <span>
+                            {{ application.application_id }}
+                        </span>
+                    </div>
+
+                    <div class="detail-row">
+                        <strong>Status</strong>
+
+                        {% if application.application_status == "Approved" %}
+
+                            <span class="status approved">
+                                Approved
+                            </span>
+
+                        {% elif application.application_status == "Rejected" %}
+
+                            <span class="status rejected">
+                                Rejected
+                            </span>
+
+                        {% else %}
+
+                            <span class="status pending">
+                                Pending
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="detail-row">
+                        <strong>Submitted On</strong>
+                        <span>
+                            {{ application.created_at }}
+                        </span>
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="status-icon">
+                    📭
+                </div>
+
+                <h2>
+                    No Application Found
+                </h2>
+
+                <p class="not-found">
+                    You have not submitted an admission application yet.
+                </p>
+
+                <a href="{{ url_for('admission_application') }}" class="btn">
+                    Apply Now
+                </a>
+
+            {% endif %}
+
+
+            <br>
+
+            <a href="{{ url_for('dashboard') }}" class="btn">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

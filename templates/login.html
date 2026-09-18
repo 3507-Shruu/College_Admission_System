@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eaf3ff, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .login-visual {
+            width: 45%;
+            background: #123b6d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .visual-icons {
+            font-size: 65px;
+            margin-bottom: 20px;
+        }
+
+        .login-visual h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .login-visual p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #dce7f5;
+        }
+
+        .login-form {
+            width: 55%;
+            padding: 50px 45px;
+        }
+
+        .login-form h1 {
+            color: #123b6d;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d5dce5;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #123b6d;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #123b6d;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #123b6d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-home a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+
+            .login-container {
+                flex-direction: column;
+            }
+
+            .login-visual,
+            .login-form {
+                width: 100%;
+            }
+
+            .login-visual {
+                padding: 30px;
+            }
+
+            .login-form {
+                padding: 35px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-visual">
+
+            <div class="visual-icons">
+                🎓 💻 🔐
+            </div>
+
+            <h2>
+                Student Portal
+            </h2>
+
+            <p>
+                Securely access your online admission application,
+                documents, payment and application status.
+            </p>
+
+        </div>
+
+
+        <div class="login-form">
+
+            <h1>
+                Student Login
+            </h1>
+
+            <p class="subtitle">
+                Login to continue your admission process.
+            </p>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div style="color: #d35400; margin-bottom: 15px; font-weight: bold;">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('login') }}">
+
+                <div class="form-group">
+
+                    <label>
+                        Student ID / Email
+                    </label>
+
+                    <input
+                        type="text"
+                        name="login_id"
+                        placeholder="Enter Student ID or Email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter Password"
+                        required>
+
+                </div>
+
+
+                <button type="submit" class="login-btn">
+                    Login
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                Don't have an account?
+                <a href="{{ url_for('register') }}">
+                    Register Now
+                </a>
+
+            </div>
+
+
+            <div class="back-home">
+
+                <a href="{{ url_for('home') }}">
+                    ← Back to Home
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

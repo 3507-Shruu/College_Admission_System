@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eaf3ff, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 950px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT SIDE */
+
+        .register-visual {
+            width: 45%;
+            background: #123b6d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 45px;
+        }
+
+        .visual-icons {
+            font-size: 60px;
+            margin-bottom: 25px;
+        }
+
+        .register-visual h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .register-visual p {
+            color: #dce7f5;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .visual-points {
+            margin-top: 25px;
+            text-align: left;
+            line-height: 2.2;
+            font-size: 14px;
+        }
+
+        /* RIGHT SIDE */
+
+        .register-form {
+            width: 55%;
+            padding: 45px;
+        }
+
+        .title {
+            color: #123b6d;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .required {
+            color: red;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d5dce5;
+            border-radius: 7px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #123b6d;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #123b6d;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .register-btn:hover {
+            opacity: 0.9;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #123b6d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .register-container {
+                flex-direction: column;
+            }
+
+            .register-visual,
+            .register-form {
+                width: 100%;
+            }
+
+            .register-visual {
+                padding: 30px;
+            }
+
+            .register-form {
+                padding: 35px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="register-container">
+
+        <!-- LEFT SIDE -->
+
+        <div class="register-visual">
+
+            <div class="visual-icons">
+                🎓 📝 ✅
+            </div>
+
+            <h2>
+                Start Your Admission Journey
+            </h2>
+
+            <p>
+                Create your student account and complete
+                your college admission process online.
+            </p>
+
+            <div class="visual-points">
+
+                <div>✓ Easy Online Registration</div>
+                <div>✓ Secure Student Account</div>
+                <div>✓ Fast Admission Process</div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="register-form">
+
+            <h1 class="title">
+                Student Registration
+            </h1>
+
+            <p class="subtitle">
+                Create your account for the Online Admission Portal
+            </p>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div style="color: #d35400; margin-bottom: 15px; font-weight: bold;">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+
+            <form method="POST" action="{{ url_for('register') }}">
+
+                <div class="form-group">
+
+                    <label>
+                        Student ID <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="student_id"
+                        placeholder="Enter Student ID"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Full Name <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="full_name"
+                        placeholder="Enter Full Name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Email <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Phone Number <span class="required">*</span>
+                    </label>
+
+                    <input 
+                        type="tel" 
+                        name="phone" 
+                        placeholder="Enter Phone Number" 
+                        maxlength="10" 
+                        pattern="[0-9]{10}"
+                        inputmode="numeric"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password <span class="required">*</span>
+                    </label>
+
+                    <input 
+                        type="password" 
+                        name="password" 
+                        placeholder="Create Password" 
+                        minlength="8"
+                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}"
+                        title="Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character."
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Confirm Password <span class="required">*</span>
+                    </label>
+
+                    <input 
+                        type="password" 
+                        name="confirm_password" 
+                        placeholder="Confirm Password" 
+                        minlength="8"
+                        required>
+
+                </div>
+
+
+                <button type="submit" class="register-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <div class="login-link">
+
+                Already have an account?
+
+                <a href="{{ url_for('login') }}">
+                    Student Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

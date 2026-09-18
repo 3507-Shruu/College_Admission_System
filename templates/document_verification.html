@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document Verification</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .header {
+            background: #123b6d;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #dce7f5;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1050px;
+            margin: 35px auto;
+        }
+
+        .intro-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .intro-card h2 {
+            color: #123b6d;
+            margin-bottom: 10px;
+        }
+
+        .intro-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .size-info {
+            margin-top: 8px;
+            color: #777;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .document-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 18px;
+        }
+
+        .document-card h3 {
+            color: #123b6d;
+            margin-bottom: 7px;
+            font-size: 18px;
+        }
+
+        .document-card p {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .required {
+            color: red;
+            font-weight: bold;
+        }
+
+        .optional {
+            color: #777;
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #d5dce5;
+            border-radius: 7px;
+            background: #fafafa;
+            font-size: 13px;
+        }
+
+        input[type="file"]:focus {
+            border-color: #123b6d;
+        }
+
+        .file-info {
+            margin-top: 8px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .button-area {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .upload-btn {
+            background: #123b6d;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 13px 28px;
+            border: 1px solid #123b6d;
+            color: #123b6d;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #123b6d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #dce7f5;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: 95%;
+            }
+
+            .button-area {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .back-btn {
+                margin-left: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            Document Verification
+        </h1>
+
+        <p>
+            Upload all required admission documents for verification
+        </p>
+
+    </div>
+
+
+    <div class="container">
+
+        <!-- INTRO -->
+
+        <div class="intro-card">
+
+            <h2>
+                📄 Required Admission Documents
+            </h2>
+
+            <p>
+                Please upload all documents clearly.
+                Accepted formats: PDF, JPG, JPEG and PNG.
+                All documents marked with
+                <span class="required">*</span>
+                are mandatory.
+            </p>
+
+            <p class="size-info">
+                Documents: Maximum 500 KB each |
+                Passport Photo: Maximum 100 KB
+            </p>
+
+        </div>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('document_verification') }}"
+            enctype="multipart/form-data">
+
+
+            <!-- 1 -->
+
+            <div class="document-card">
+
+                <h3>
+                    1. 1st Year Marksheet / Result
+                </h3>
+
+                <p>
+                    Upload your 1st year marksheet or result.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File <span class="required">*</span>
+                </label>
+
+                <input
+                    type="file"
+                    name="first_year_marksheet"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 2 -->
+
+            <div class="document-card">
+
+                <h3>
+                    2. 1st Year Passing Certificate
+                </h3>
+
+                <p>
+                    Upload your 1st year passing certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="first_year_passing_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 3 -->
+
+            <div class="document-card">
+
+                <h3>
+                    3. Leaving / Transfer Certificate (LC/TC)
+                </h3>
+
+                <p>
+                    Upload your Leaving Certificate or Transfer Certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File <span class="required">*</span>
+                </label>
+
+                <input
+                    type="file"
+                    name="lc_tc"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 4 -->
+
+            <div class="document-card">
+
+                <h3>
+                    4. Migration Certificate
+                </h3>
+
+                <p>
+                    Upload your Migration Certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="migration_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 5 -->
+
+            <div class="document-card">
+
+                <h3>
+                    5. 10th Standard Marksheet
+                </h3>
+
+                <p>
+                    Upload your 10th standard marksheet.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File <span class="required">*</span>
+                </label>
+
+                <input
+                    type="file"
+                    name="tenth_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 6 -->
+
+            <div class="document-card">
+
+                <h3>
+                    6. 12th Standard Marksheet
+                </h3>
+
+                <p>
+                    Upload your 12th standard marksheet.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="twelfth_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 7 -->
+
+            <div class="document-card">
+
+                <h3>
+                    7. Diploma Marksheet
+                </h3>
+
+                <p>
+                    Upload your Diploma Marksheet.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="diploma_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 8 -->
+
+            <div class="document-card">
+
+                <h3>
+                    8. Aadhaar Card / Identity Proof
+                </h3>
+
+                <p>
+                    Upload your Aadhaar Card or other identity proof.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File <span class="required">*</span>
+                </label>
+
+                <input
+                    type="file"
+                    name="identity_proof"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 9 -->
+
+            <div class="document-card">
+
+                <h3>
+                    9. Passport-size Photograph
+                </h3>
+
+                <p>
+                    Upload your recent passport-size photograph.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 100 KB
+                </p>
+
+                <label>
+                    Select Photo <span class="required">*</span>
+                </label>
+
+                <input
+                    type="file"
+                    name="passport_photo"
+                    accept=".jpg,.jpeg,.png"
+                    required>
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 10 -->
+
+            <div class="document-card">
+
+                <h3>
+                    10. Caste Certificate
+                </h3>
+
+                <p>
+                    Upload your caste certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="caste_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 11 -->
+
+            <div class="document-card">
+
+                <h3>
+                    11. Caste Validity Certificate
+                </h3>
+
+                <p>
+                    Upload your caste validity certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="caste_validity"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 12 -->
+
+            <div class="document-card">
+
+                <h3>
+                    12. Non-Creamy Layer Certificate
+                </h3>
+
+                <p>
+                    Upload your Non-Creamy Layer certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="non_creamy_layer"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 13 -->
+
+            <div class="document-card">
+
+                <h3>
+                    13. EWS Certificate
+                </h3>
+
+                <p>
+                    Upload your EWS certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="ews_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 14 -->
+
+            <div class="document-card">
+
+                <h3>
+                    14. Domicile Certificate
+                </h3>
+
+                <p>
+                    Upload your Domicile Certificate.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File <span class="required">*</span>
+                </label>
+
+                <input
+                    type="file"
+                    name="domicile_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required>
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- 15 -->
+
+            <div class="document-card">
+
+                <h3>
+                    15. Gap Certificate / Affidavit
+                </h3>
+
+                <p>
+                    Upload your Gap Certificate or Affidavit.
+                </p>
+
+                <p class="size-info">
+                    Maximum file size: 500 KB
+                </p>
+
+                <label>
+                    Select File
+                </label>
+
+                <input
+                    type="file"
+                    name="gap_certificate"
+                    accept=".pdf,.jpg,.jpeg,.png">
+
+                <div class="file-info">
+                    No file selected
+                </div>
+
+            </div>
+
+            <!-- 16 -->
+
+<div class="document-card">
+
+    <h3>
+        16. Bank Details
+    </h3>
+
+    <p>
+        Upload your bank passbook first page showing bank account details.
+    </p>
+
+    <p class="size-info">
+        Maximum file size: 500 KB
+    </p>
+
+    <label>
+        Upload Bank Passbook <span class="required">*</span>
+    </label>
+
+    <input
+        type="file"
+        name="bank_passbook"
+        accept=".pdf,.jpg,.jpeg,.png"
+        required>
+
+    <div class="file-info">
+        No file selected
+    </div>
+
+</div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="button-area">
+
+                <button
+                    type="submit"
+                    class="upload-btn">
+
+                    Upload Documents
+
+                </button>
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="back-btn">
+
+                    ← Back to Dashboard
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Shivnagar Vidya Prasarak Mandal's College of Engineering
+            | Malegaon (BK) - Baramati
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        // File selection and size validation
+
+        const fileInputs = document.querySelectorAll(
+            'input[type="file"]'
+        );
+
+        fileInputs.forEach(function(input) {
+
+            input.addEventListener("change", function() {
+
+                const info =
+                    this.parentElement.querySelector(".file-info");
+
+                if (this.files.length === 0) {
+
+                    info.textContent = "No file selected";
+
+                    return;
+                }
+
+                const file = this.files[0];
+
+                let maxSize;
+                let maxSizeText;
+
+                // Passport photo = 100 KB
+
+                if (this.name === "passport_photo") {
+
+                    maxSize = 100 * 1024;
+                    maxSizeText = "100 KB";
+
+                } else {
+
+                    // All other documents = 500 KB
+
+                    maxSize = 500 * 1024;
+                    maxSizeText = "500 KB";
+                }
+
+                // Check file size
+
+                if (file.size > maxSize) {
+
+                    alert(
+                        "File size must be " +
+                        maxSizeText +
+                        " or less."
+                    );
+
+                    this.value = "";
+
+                    info.textContent = "No file selected";
+
+                    return;
+                }
+
+                // Show selected file
+
+                info.textContent =
+                    "Selected: " + file.name;
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

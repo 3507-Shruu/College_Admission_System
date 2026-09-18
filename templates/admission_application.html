@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admission Application</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #123b6d;
+            color: white;
+            padding: 22px 7%;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #dce7f5;
+        }
+
+        /* MAIN CONTAINER */
+
+        .form-container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 30px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* SECTION */
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            background: #eaf3ff;
+            color: #123b6d;
+            padding: 13px 16px;
+            border-left: 5px solid #123b6d;
+            border-radius: 6px;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* GRID */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #333;
+        }
+
+        .required {
+            color: red;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d5dce5;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #123b6d;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* DECLARATION */
+
+        .declaration {
+            background: #f8fbff;
+            border: 1px solid #dce7f5;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.7;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .checkbox-group {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        /* BUTTONS */
+
+        .button-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            background: #123b6d;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-left: 12px;
+            padding: 13px 28px;
+            border: 1px solid #123b6d;
+            color: #123b6d;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #123b6d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #dce7f5;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                width: 95%;
+                padding: 22px;
+            }
+
+            .button-area {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .back-btn {
+                margin-left: 0;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            Online Admission Application
+        </h1>
+
+        <p>
+            Shivnagar Vidya Prasarak Mandal's College of Engineering
+            | Malegaon (BK) - Baramati
+        </p>
+
+    </div>
+
+
+    <div class="form-container">
+
+        <form method="POST" action="{{ url_for('admission_application') }}">
+
+            <!-- ADMISSION DETAILS -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    1. Admission Details
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Admission Year <span class="required">*</span>
+                        </label>
+
+                        <select name="admission_year" required>
+
+                            <option value="">
+                                Select Admission Year
+                            </option>
+
+                            <option value="2026-27">
+                                2026-27
+                            </option>
+
+                            <option value="2027-28">
+                                2027-28
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Student Academic Year <span class="required">*</span>
+                        </label>
+
+                        <select name="student_year" required>
+
+                            <option value="">
+                                Select Year
+                            </option>
+
+                            <option value="2nd Year">
+                                2nd Year
+                            </option>
+
+                            <option value="3rd Year">
+                                3rd Year
+                            </option>
+
+                            <option value="4th Year">
+                                4th Year
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Hostel Admission <span class="required">*</span>
+                        </label>
+
+                        <select name="hostel_admission" required>
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="Yes">
+                                Yes
+                            </option>
+
+                            <option value="No">
+                                No
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Course / Branch <span class="required">*</span>
+                        </label>
+
+                        <select name="course" required>
+
+                            <option value="">
+                                Select Course / Branch
+                            </option>
+
+                            <option value="AI/ML">
+                                AI/ML
+                            </option>
+
+                            <option value="Computer Engineering">
+                                Computer Engineering
+                            </option>
+
+                            <option value="Information Technology">
+                                Information Technology
+                            </option>
+
+                            <option value="Electronics & Telecommunication Engineering">
+                                Electronics & Telecommunication Engineering
+                            </option>
+
+                            <option value="Mechanical Engineering">
+                                Mechanical Engineering
+                            </option>
+
+                            <option value="Civil Engineering">
+                                Civil Engineering
+                            </option>
+
+                            <option value="Mechatronics">
+                                Mechatronics
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Admission Type <span class="required">*</span>
+                        </label>
+
+                        <select name="admission_type" required>
+
+                            <option value="">
+                                Select Admission Type
+                            </option>
+
+                            <option value="CAP">
+                                CAP
+                            </option>
+
+                            <option value="Management">
+                                Management
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STUDENT DETAILS -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    2. Student Information
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Full Name <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="full_name"
+                               placeholder="Enter Full Name"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Father's Name <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="father_name"
+                               placeholder="Enter Father's Name"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Mother's Name <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="mother_name"
+                               placeholder="Enter Mother's Name"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Date of Birth <span class="required">*</span>
+                        </label>
+
+                        <div style="display: flex; gap: 10px;">
+
+                            <select id="dob_day" required>
+                                <option value="">Day</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+
+                            <select id="dob_month" required>
+                                <option value="">Month</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+
+                            <select id="dob_year" required>
+                                <option value="">Year</option>
+                                {% for year in range(1980, 2027) %}
+                                     <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                                </select>
+
+                        </div>
+
+                        <input type="hidden" name="date_of_birth" id="date_of_birth">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Religion <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="religion"
+                               placeholder="Enter Religion"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Caste <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="caste"
+                               placeholder="Enter Caste"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Caste Category <span class="required">*</span>
+                        </label>
+
+                        <select name="caste_category" required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            <option value="OPEN">Open</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                            <option value="VJ">VJ</option>
+                            <option value="DT-A">DT (A)</option>
+                            <option value="SBC">SBC</option>
+                            <option value="NT-1">NT (1)</option>
+                            <option value="NT-2">NT (2)</option>
+                            <option value="NT-3">NT (3)</option>
+                            <option value="OBC">OBC</option>
+                            <option value="ESBC">ESBC</option>
+                            <option value="EWS">EWS</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACADEMIC DETAILS -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    3. Academic Information
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            FE Admission Year
+                        </label>
+
+                        <input type="text"
+                               name="fe_admission_year"
+                               placeholder="Example: 2023-24">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            SE Admission Year
+                        </label>
+
+                        <input type="text"
+                               name="se_admission_year"
+                               placeholder="Example: 2024-25">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            TE Admission Year
+                        </label>
+
+                        <input type="text"
+                               name="te_admission_year"
+                               placeholder="Example: 2025-26">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Eligibility Number <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="eligibility_no"
+                               placeholder="Enter Eligibility Number"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Perm Reg No. (PRN) <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="pr_no"
+                               placeholder="Enter Perm Reg No. (PRN)"
+                               required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SCHOLARSHIP & BANK -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    4. Scholarship & Bank Details
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Scholarship <span class="required">*</span>
+                        </label>
+
+                        <select name="scholarship" required>
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="Yes">
+                                Yes
+                            </option>
+
+                            <option value="No">
+                                No
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Scholarship Type  <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="scholarship_type"
+                               placeholder="Enter Scholarship Type"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Bank Name <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="bank_name"
+                               placeholder="Enter Bank Name"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Account Number <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="account_no"
+                               placeholder="Enter Account Number"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            IFSC Code <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="ifsc_code"
+                               placeholder="Enter IFSC Code"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            BSR Code
+                        </label>
+
+                        <input type="text"
+                               name="bsr_code"
+                               placeholder="Enter BSR Code">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    5. Contact Details
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Aadhaar Number <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="aadhaar_no"
+                               placeholder="Enter Aadhaar Number"
+                               maxlength="12"
+                               inputmode="numeric"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Email <span class="required">*</span>
+                        </label>
+
+                        <input type="email"
+                               name="email"
+                               placeholder="Enter Email"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Mobile Number <span class="required">*</span>
+                        </label>
+
+                        <input type="tel"
+                               name="phone"
+                               placeholder="Enter 10-digit Mobile Number"
+                               maxlength="10"
+                               pattern="[0-9]{10}"
+                               inputmode="numeric"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                               required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PERMANENT ADDRESS -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    6. Permanent Address
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+
+                        <label>
+                            Address <span class="required">*</span>
+                        </label>
+
+                        <textarea name="permanent_address"
+                                  placeholder="Enter Permanent Address"
+                                  required></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            District <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="permanent_district"
+                               placeholder="Enter District"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            PIN Code <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               name="permanent_pincode"
+                               placeholder="Enter PIN Code"
+                               required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOCAL ADDRESS -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    7. Local Address
+                </h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+
+                        <label>
+                            Address
+                        </label>
+
+                        <textarea name="local_address"
+                                  placeholder="Enter Local Address"></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            District
+                        </label>
+
+                        <input type="text"
+                               name="local_district"
+                               placeholder="Enter District">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            PIN Code
+                        </label>
+
+                        <input type="text"
+                               name="local_pincode"
+                               placeholder="Enter PIN Code">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Local Phone Number
+                        </label>
+
+                        <input type="tel"
+                               name="local_phone"
+                               placeholder="Enter Phone Number"
+                               maxlength="10"
+                               pattern="[0-9]{10}"
+                               inputmode="numeric"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DECLARATION -->
+
+            <div class="form-section">
+
+                <h2 class="section-title">
+                    8. Student Declaration
+                </h2>
+
+                <div class="declaration">
+
+                    I hereby declare that the information provided by me
+                    in this application form is true and correct to the best
+                    of my knowledge. I understand that incorrect information
+                    may lead to cancellation of my admission.
+
+                    <div class="checkbox-group">
+
+                        <input type="checkbox"
+                               id="declaration"
+                               required>
+
+                        <label for="declaration">
+                            I agree to the above declaration.
+                            <span class="required">*</span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="button-area">
+
+                <button type="submit" class="submit-btn">
+                    Submit Application
+                </button>
+
+                <a href="{{ url_for('dashboard') }}" class="back-btn">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Shivnagar Vidya Prasarak Mandal's College of Engineering
+            | Malegaon (BK) - Baramati
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        // Aadhaar: allow only numbers
+
+        const aadhaar = document.querySelector(
+            'input[name="aadhaar_no"]'
+        );
+
+        if (aadhaar) {
+            aadhaar.addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        }
+
+
+        // PIN codes: allow only numbers
+
+        const pinFields = document.querySelectorAll(
+            'input[name="permanent_pincode"], input[name="local_pincode"]'
+        );
+
+        pinFields.forEach(function (field) {
+
+            field.addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+        });
+
+
+        // Local phone number validation
+
+        const localPhone = document.querySelector(
+            'input[name="local_phone"]'
+        );
+
+        if (localPhone) {
+
+            localPhone.addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+        }
+
+        // Date of Birth: combine Day, Month and Year
+
+        const dobDay = document.getElementById("dob_day");
+        const dobMonth = document.getElementById("dob_month");
+        const dobYear = document.getElementById("dob_year");
+        const dobHidden = document.getElementById("date_of_birth");
+
+        function updateDOB() {
+
+            if (dobDay.value && dobMonth.value && dobYear.value) {
+
+                dobHidden.value =
+                    dobYear.value + "-" +
+                    dobMonth.value + "-" +
+                    dobDay.value;
+
+    }
+
+}
+
+dobDay.addEventListener("change", updateDOB);
+dobMonth.addEventListener("change", updateDOB);
+dobYear.addEventListener("change", updateDOB);
+
+</script>
+
+</body>
+
+</html>
