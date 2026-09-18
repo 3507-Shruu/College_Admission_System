@@ -394,8 +394,8 @@ def document_verification():
             ("non_creamy_layer", "Non-Creamy Layer Certificate", True),
             ("ews_certificate", "EWS Certificate", True),
             ("domicile_certificate", "Domicile Certificate", True),
-            ("gap_certificate", "Gap Certificate / Affidavit", True)
-            ("bank_passbook", "Bank Details / Bank Passbook", False),
+            ("gap_certificate", "Gap Certificate / Affidavit", True),
+            ("bank_passbook", "Bank Details / Bank Passbook", True)
         ]
 
         allowed_extensions = {
