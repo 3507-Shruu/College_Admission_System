@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Document Verification</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .header {
+            background: #123b6d;
+            color: white;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .header p {
+            margin-top: 5px;
+            font-size: 13px;
+            color: #dce7f5;
+        }
+
+        .container {
+            width: 94%;
+            max-width: 1250px;
+            margin: 30px auto;
+        }
+
+        .intro-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .intro-card h2 {
+            color: #123b6d;
+            margin-bottom: 8px;
+        }
+
+        .intro-card p {
+            color: #666;
+        }
+
+        .student-section {
+            background: white;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .student-header {
+            background: #eaf1f8;
+            padding: 18px 22px;
+            border-bottom: 1px solid #d7e0ea;
+        }
+
+        .student-header h3 {
+            color: #123b6d;
+            margin-bottom: 5px;
+        }
+
+        .student-header p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .document-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .document-table th {
+            background: #123b6d;
+            color: white;
+            padding: 13px 10px;
+            text-align: center;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .document-table td {
+            padding: 13px 10px;
+            border-bottom: 1px solid #e5e9ef;
+            font-size: 13px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .document-table td:first-child,
+        .document-table td:nth-child(2) {
+            text-align: left;
+        }
+
+        .document-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .verified {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .view-btn,
+        .verify-btn,
+        .reject-btn {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .view-btn {
+            background: #0d6efd;
+            color: white;
+            border: none;
+        }
+
+        .verify-btn {
+            background: #198754;
+            color: white;
+            border: none;
+        }
+
+        .reject-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .view-btn:hover,
+        .verify-btn:hover,
+        .reject-btn:hover {
+            opacity: 0.9;
+        }
+
+        .document-table form {
+            margin: 0;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            color: #777;
+        }
+
+        .back-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 11px 22px;
+            background: #123b6d;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        footer {
+            background: #123b6d;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #dce7f5;
+        }
+
+        @media (max-width: 900px) {
+
+            .container {
+                width: 96%;
+            }
+
+            .document-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .document-table th,
+            .document-table td {
+                white-space: nowrap;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+        }
+
+/* FINAL TABLE ALIGNMENT FIX */
+
+.document-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.document-table th,
+.document-table td {
+    text-align: center !important;
+    vertical-align: middle;
+    padding: 13px 10px;
+}
+
+.document-table th:nth-child(1),
+.document-table td:nth-child(1) {
+    width: 25%;
+}
+
+.document-table th:nth-child(2),
+.document-table td:nth-child(2) {
+    width: 18%;
+}
+
+.document-table th:nth-child(3),
+.document-table td:nth-child(3) {
+    width: 12%;
+}
+
+.document-table th:nth-child(4),
+.document-table td:nth-child(4) {
+    width: 18%;
+}
+
+.document-table th:nth-child(5),
+.document-table td:nth-child(5) {
+    width: 13%;
+}
+
+.document-table th:nth-child(6),
+.document-table td:nth-child(6) {
+    width: 14%;
+}
+
+.document-table td:first-child,
+.document-table td:nth-child(2) {
+    text-align: center !important;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                Admin Document Verification
+            </h1>
+
+            <p>
+                Review student uploaded admission documents
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+
+        <!-- INTRO -->
+
+        <div class="intro-card">
+
+            <h2>
+                📄 Uploaded Documents
+            </h2>
+
+            <p>
+                Admin can review the documents uploaded by students.
+            </p>
+
+        </div>
+
+
+        {% if documents %}
+
+            {% set current_student = namespace(id='') %}
+
+            {% for document in documents %}
+
+
+                {% if current_student.id != document.student_id %}
+
+
+                    {% if current_student.id != '' %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    {% set current_student.id = document.student_id %}
+
+
+                    <div class="student-section">
+
+
+                        <div class="student-header">
+
+                            <h3>
+                                Student ID: {{ document.student_id }}
+                            </h3>
+
+                            <p>
+                                Uploaded admission documents
+                            </p>
+
+                        </div>
+
+
+                        <table class="document-table">
+
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Document
+                                    </th>
+
+                                    <th>
+                                        File Name
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        View Document
+                                    </th>
+
+                                    <th>
+                                        If Verify
+                                    </th>
+
+                                    <th>
+                                        If Not Verified
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                {% endif %}
+
+
+                <tr>
+
+
+                    <!-- DOCUMENT -->
+
+                    <td>
+                        {{ document.document_type }}
+                    </td>
+
+
+                    <!-- FILE NAME -->
+
+                    <td>
+                        {{ document.file_name }}
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if document.verification_status == "Pending" %}
+
+                            <span class="status pending">
+                                Pending
+                            </span>
+
+                        {% elif document.verification_status == "Verified" %}
+
+                            <span class="status verified">
+                                Verified
+                            </span>
+
+                        {% elif document.verification_status == "Rejected" %}
+
+                            <span class="status rejected">
+                                Rejected
+                            </span>
+
+                        {% else %}
+
+                            <span class="status pending">
+                                {{ document.verification_status }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- VIEW DOCUMENT -->
+
+                    <td>
+
+                        <a
+                            href="{{ url_for('view_document', document_id=document.document_id) }}"
+                            class="view-btn">
+
+                            View Document
+
+                        </a>
+
+                    </td>
+
+
+                    <!-- VERIFY -->
+
+                    <td>
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('update_document_verification', document_id=document.document_id) }}">
+
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="Verified">
+
+                            <button
+                                type="submit"
+                                class="verify-btn">
+
+                                Verify
+
+                            </button>
+
+                        </form>
+
+                    </td>
+
+
+                    <!-- REJECT -->
+
+                    <td>
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('update_document_verification', document_id=document.document_id) }}">
+
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="Rejected">
+
+                            <button
+                                type="submit"
+                                class="reject-btn">
+
+                                Reject
+
+                            </button>
+
+                        </form>
+
+                    </td>
+
+
+                </tr>
+
+
+                {% if loop.last %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% endif %}
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <div class="empty-message">
+
+                <h3>
+                    No Documents Found
+                </h3>
+
+                <p>
+                    No student documents have been uploaded yet.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+        <!-- BACK BUTTON -->
+
+        <div class="back-area">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="back-btn">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Shivnagar Vidya Prasarak Mandal's College of Engineering
+            | Malegaon (BK) - Baramati
+        </p>
+
+    </footer>
+
+/</body>
+
+</html>

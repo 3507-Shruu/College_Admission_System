@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 import mysql.connector
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -557,6 +557,232 @@ def document_verification():
 
     return render_template("document_verification.html")
 
+
+# Document Status
+@app.route("/document-status")
+def document_status():
+
+    if "student_id" not in session:
+        return redirect(url_for("login"))
+
+    cursor = None
+
+    try:
+
+        cursor = db.cursor(dictionary=True)
+
+        query = """
+            SELECT
+                document_id,
+                document_type,
+                file_name,
+                verification_status,
+                uploaded_at
+            FROM documents
+            WHERE student_id = %s
+            ORDER BY document_id
+        """
+
+        cursor.execute(
+            query,
+            (session["student_id"],)
+        )
+
+        documents = cursor.fetchall()
+
+        cursor.close()
+
+        return render_template(
+            "document_status.html",
+            documents=documents
+        )
+
+    except mysql.connector.Error as err:
+
+        print("Document Status Database Error:", err)
+
+        if cursor:
+            cursor.close()
+
+        flash("Unable to load document status.")
+        return redirect(url_for("dashboard"))
+
+
+# Admin Document Verification
+@app.route("/admin/document-verification")
+def admin_document_verification():
+
+    cursor = None
+
+    try:
+
+        cursor = db.cursor(dictionary=True)
+
+        query = """
+            SELECT
+                document_id,
+                student_id,
+                document_type,
+                file_name,
+                file_path,
+                verification_status
+            FROM documents
+            ORDER BY student_id, document_id
+        """
+
+        cursor.execute(query)
+
+        documents = cursor.fetchall()
+
+        cursor.close()
+
+        return render_template(
+            "admin_document_verification.html",
+            documents=documents
+        )
+
+    except mysql.connector.Error as err:
+
+        print("Admin Document Verification Error:", err)
+
+        if cursor:
+            cursor.close()
+
+        flash("Unable to load admin document verification.")
+
+        return redirect(url_for("dashboard"))
+
+
+# View Uploaded Document
+@app.route("/view-document/<int:document_id>")
+def view_document(document_id):
+
+    cursor = None
+
+    try:
+
+        cursor = db.cursor(dictionary=True)
+
+        query = """
+            SELECT file_path
+            FROM documents
+            WHERE document_id = %s
+        """
+
+        cursor.execute(query, (document_id,))
+
+        document = cursor.fetchone()
+
+        cursor.close()
+
+        if not document:
+            flash("Document not found.")
+            return redirect(url_for("admin_document_verification"))
+
+        filename = os.path.basename(document["file_path"])
+
+        return send_from_directory(
+            app.config["UPLOAD_FOLDER"],
+            filename
+        )
+
+    except mysql.connector.Error as err:
+
+        print("View Document Database Error:", err)
+
+        if cursor:
+            cursor.close()
+
+        flash("Unable to open document.")
+        return redirect(url_for("admin_document_verification"))
+
+
+# Verify or Reject Document
+@app.route("/admin/document-verification/<int:document_id>", methods=["POST"])
+def update_document_verification(document_id):
+
+    action = request.form.get("action")
+
+    if action not in ["Verified", "Rejected"]:
+        flash("Invalid document verification action.")
+        return redirect(url_for("admin_document_verification"))
+
+    cursor = None
+
+    try:
+
+        cursor = db.cursor()
+
+        query = """
+            UPDATE documents
+            SET verification_status = %s
+            WHERE document_id = %s
+        """
+
+        cursor.execute(
+            query,
+            (action, document_id)
+        )
+
+        db.commit()
+
+        cursor.close()
+
+        flash("Document status updated to " + action + ".")
+
+        return redirect(
+            url_for("admin_document_verification")
+        )
+
+    except mysql.connector.Error as err:
+
+        print("Document Verification Update Error:", err)
+
+        if cursor:
+            cursor.close()
+
+        flash("Unable to update document status.")
+
+        return redirect(
+            url_for("admin_document_verification")
+        ) 
+
+
+# Admin Login
+@app.route("/admin-login", methods=["GET", "POST"])
+def admin_login():
+
+    if request.method == "POST":
+
+        username = request.form["admin_username"]
+        password = request.form["admin_password"]
+
+        # Demo admin credentials
+        ADMIN_USERNAME = "admin"
+        ADMIN_PASSWORD = "admin123"
+
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+
+            session["admin_logged_in"] = True
+
+            return redirect(url_for("admin_dashboard"))
+
+        else:
+
+            flash("Invalid admin username or password.")
+
+            return redirect(url_for("admin_login"))
+
+    return render_template("admin_login.html")
+
+# Admin Dashboard
+@app.route("/admin-dashboard")
+def admin_dashboard():
+
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login"))
+
+    return render_template("admin_dashboard.html")
 
 # Logout
 @app.route("/logout")

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Dashboard</title>
+    <title>Admin Dashboard</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -16,6 +19,7 @@
 
         body {
             background: #f4f7fb;
+            color: #222;
         }
 
         .header {
@@ -27,9 +31,16 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
-        .college-name {
+        .admin-title {
             font-size: 20px;
             font-weight: bold;
+            color: #123b6d;
+        }
+
+        .admin-subtitle {
+            margin-top: 4px;
+            font-size: 13px;
+            color: #777;
         }
 
         .logout {
@@ -38,6 +49,7 @@
             color: white;
             text-decoration: none;
             border-radius: 6px;
+            font-weight: bold;
         }
 
         .container {
@@ -54,7 +66,12 @@
         }
 
         .welcome h1 {
+            color: #123b6d;
             margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #666;
         }
 
         .cards {
@@ -74,73 +91,97 @@
         }
 
         .card h2 {
+            color: #123b6d;
             margin-bottom: 10px;
         }
 
         .card p {
             color: #666;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .btn {
             display: inline-block;
+            align-self: flex-start;
             padding: 10px 18px;
             background: #0d6efd;
             color: white;
             text-decoration: none;
             border-radius: 6px;
-        }
-
-        /* Document Verification buttons */
-        .document-buttons {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            width: 100%;
+            font-weight: bold;
             margin-top: auto;
         }
 
-        .document-buttons .btn {
-            flex: 1;
-            text-align: center;
-            white-space: nowrap;
+        .btn:hover {
+            opacity: 0.9;
         }
 
-        /* Keep single buttons at the same bottom level */
-        .card > .btn {
-            margin-top: auto;
-            align-self: flex-start;
-            width: auto;
+        .document-btn {
+            background: #198754;
         }
 
-        @media (max-width: 800px) {
+        .application-btn {
+            background: #6f42c1;
+        }
+
+        .payment-btn {
+            background: #fd7e14;
+        }
+
+        .notification-btn {
+            background: #0dcaf0;
+            color: #123b6d;
+        }
+
+        .status-btn {
+            background: #20c997;
+        }
+
+        @media (max-width: 900px) {
 
             .cards {
                 grid-template-columns: 1fr;
             }
 
-            .document-buttons {
-                flex-direction: row;
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
             }
 
-            .document-buttons .btn {
-                padding: 10px 8px;
-                font-size: 14px;
-            }
         }
+
     </style>
+
 </head>
 
 <body>
 
+
+    <!-- HEADER -->
+
     <div class="header">
 
-        <div class="college-name">
-            College Admission Portal
+        <div>
+
+            <div class="admin-title">
+                College Admission Portal
+            </div>
+
+            <div class="admin-subtitle">
+                Admin Panel
+            </div>
+
         </div>
 
-        <a href="{{ url_for('logout') }}" class="logout">
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout">
+
             Logout
+
         </a>
 
     </div>
@@ -148,61 +189,44 @@
 
     <div class="container">
 
+
+        <!-- WELCOME -->
+
         <div class="welcome">
 
-            <h1>Welcome Back!</h1>
+            <h1>
+                Welcome Admin!
+            </h1>
 
             <p>
-                Student Admission Management Dashboard
+                Manage student applications, documents, payments and admission verification.
             </p>
 
         </div>
 
 
-        {% with messages = get_flashed_messages() %}
-
-            {% if messages %}
-
-                <div style="
-                    background: #e8f7ee;
-                    color: #176b3a;
-                    padding: 12px 18px;
-                    border: 1px solid #b7e4c7;
-                    border-radius: 8px;
-                    margin-bottom: 25px;
-                    text-align: center;
-                    font-weight: bold;
-                ">
-
-                    {{ messages[0] }}
-
-                </div>
-
-            {% endif %}
-
-        {% endwith %}
-
+        <!-- ADMIN CARDS -->
 
         <div class="cards">
 
 
-            <!-- ADMISSION APPLICATION -->
+            <!-- STUDENT APPLICATIONS -->
 
             <div class="card">
 
                 <h2>
-                    📝 Admission Application
+                    📝 Student Applications
                 </h2>
 
                 <p>
-                    Fill and submit your online admission application.
+                    View and review student admission applications.
                 </p>
 
                 <a
-                    href="{{ url_for('admission_application') }}"
-                    class="btn">
+                    href="#"
+                    class="btn application-btn">
 
-                    Apply Now
+                    View Applications
 
                 </a>
 
@@ -218,49 +242,37 @@
                 </h2>
 
                 <p>
-                    Upload your documents and verify them using AI.
+                    Review uploaded documents and verify or reject them.
                 </p>
 
-                <div class="document-buttons">
+                <a
+                    href="{{ url_for('admin_document_verification') }}"
+                    class="btn document-btn">
 
-                    <a
-                        href="{{ url_for('document_verification') }}"
-                        class="btn">
+                    Verify Documents
 
-                        Verify Documents
-
-                    </a>
-
-                    <a
-                        href="{{ url_for('document_status') }}"
-                        class="btn">
-
-                        Document Status
-
-                    </a>
-
-                </div>
+                </a>
 
             </div>
 
 
-            <!-- ONLINE PAYMENT -->
+            <!-- PAYMENT VERIFICATION -->
 
             <div class="card">
 
                 <h2>
-                    💳 Online Payment
+                    💳 Payment Verification
                 </h2>
 
                 <p>
-                    Pay your admission fees online.
+                    Check student payment details and verify payments.
                 </p>
 
                 <a
                     href="#"
-                    class="btn">
+                    class="btn payment-btn">
 
-                    Make Payment
+                    Verify Payments
 
                 </a>
 
@@ -272,41 +284,18 @@
             <div class="card">
 
                 <h2>
-                    📊 Application Status
+                    📊 Application Tracking
                 </h2>
 
                 <p>
-                    Check your admission application status.
-                </p>
-
-                <a
-                    href="{{ url_for('application_status') }}"
-                    class="btn">
-
-                    View Status
-
-                </a>
-
-            </div>
-
-
-            <!-- PAYMENT RECEIPT -->
-
-            <div class="card">
-
-                <h2>
-                    🧾 Payment Receipt
-                </h2>
-
-                <p>
-                    View and download your payment receipt.
+                    Track student application and admission status.
                 </p>
 
                 <a
                     href="#"
-                    class="btn">
+                    class="btn status-btn">
 
-                    View Receipt
+                    Track Applications
 
                 </a>
 
@@ -322,14 +311,37 @@
                 </h2>
 
                 <p>
-                    Check important admission notifications.
+                    Manage important admission notifications and updates.
+                </p>
+
+                <a
+                    href="#"
+                    class="btn notification-btn">
+
+                    Manage Notifications
+
+                </a>
+
+            </div>
+
+
+            <!-- ADMIN SETTINGS -->
+
+            <div class="card">
+
+                <h2>
+                    ⚙️ Admin Settings
+                </h2>
+
+                <p>
+                    Manage admin panel settings and system controls.
                 </p>
 
                 <a
                     href="#"
                     class="btn">
 
-                    View Notifications
+                    Settings
 
                 </a>
 
@@ -340,5 +352,7 @@
 
     </div>
 
+
 </body>
+
 </html>

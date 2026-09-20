@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 90%;
+            max-width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+        }
+
+        .icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 20px;
+            background: #123b6d;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #123b6d;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ccd4df;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #0d6efd;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #0d6efd;
+            color: white;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #123b6d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c2c7;
+            padding: 10px 12px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .success-message {
+            background: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+            padding: 10px 12px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 500px) {
+
+            .login-container {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="icon">
+            🔐
+        </div>
+
+        <h1>
+            Admin Login
+        </h1>
+
+        <p class="subtitle">
+            College Admission Management System
+        </p>
+
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                <div class="error-message">
+                    {{ messages[0] }}
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label for="admin_username">
+                    Admin Username
+                </label>
+
+                <input
+                    type="text"
+                    id="admin_username"
+                    name="admin_username"
+                    placeholder="Enter admin username"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="admin_password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="admin_password"
+                    name="admin_password"
+                    placeholder="Enter admin password"
+                    required>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn">
+
+                Login as Admin
+
+            </button>
+
+        </form>
+
+
+        <a
+            href="{{ url_for('home') }}"
+            class="back-link">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+</body>
+
+</html>

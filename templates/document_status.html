@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document Status</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        .header {
+            background: #123b6d;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #dce7f5;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1050px;
+            margin: 35px auto;
+        }
+
+        .status-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .status-card h2 {
+            color: #123b6d;
+            margin-bottom: 10px;
+        }
+
+        .status-card p {
+            color: #666;
+        }
+
+        .document-list {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .document-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 22px;
+            border-bottom: 1px solid #e6eaf0;
+            gap: 20px;
+        }
+
+        .document-row:last-child {
+            border-bottom: none;
+        }
+
+        .document-info h3 {
+            color: #123b6d;
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .document-info p {
+            color: #777;
+            font-size: 13px;
+        }
+
+        .status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-verified {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            color: #777;
+        }
+
+        .button-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 13px 28px;
+            background: #123b6d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            background: #123b6d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 13px;
+            color: #dce7f5;
+        }
+
+        @media (max-width: 700px) {
+
+            .container {
+                width: 95%;
+            }
+
+            .document-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .status {
+                align-self: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            Document Status
+        </h1>
+
+        <p>
+            Check the verification status of your uploaded documents
+        </p>
+
+    </div>
+
+
+    <div class="container">
+
+        <!-- INTRO -->
+
+        <div class="status-card">
+
+            <h2>
+                📄 My Documents
+            </h2>
+
+            <p>
+                Below you can check the current verification status
+                of your uploaded documents.
+            </p>
+
+        </div>
+
+
+        {% if documents %}
+
+        <div class="document-list">
+
+            {% for document in documents %}
+
+            <div class="document-row">
+
+                <div class="document-info">
+
+                    <h3>
+                        {{ document.document_type }}
+                    </h3>
+
+                    <p>
+                        File: {{ document.file_name }}
+                    </p>
+
+                </div>
+
+
+                {% if document.verification_status == "Pending" %}
+
+                    <span class="status status-pending">
+                        Pending
+                    </span>
+
+                {% elif document.verification_status == "Verified" %}
+
+                    <span class="status status-verified">
+                        Verified
+                    </span>
+
+                {% elif document.verification_status == "Rejected" %}
+
+                    <span class="status status-rejected">
+                        Rejected
+                    </span>
+
+                {% else %}
+
+                    <span class="status status-pending">
+                        {{ document.verification_status }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-message">
+
+            <h3>
+                No Documents Found
+            </h3>
+
+            <p>
+                Please upload your documents first.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- BACK BUTTON -->
+
+        <div class="button-area">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="back-btn">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Shivnagar Vidya Prasarak Mandal's College of Engineering
+            | Malegaon (BK) - Baramati
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
